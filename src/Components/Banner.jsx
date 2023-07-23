@@ -1,5 +1,5 @@
 import React from "react";
-
+import image from "../utilities/images/capsule-1.jpg";
 export default function Banner() {
   return (
     <div className="banner">
@@ -12,7 +12,7 @@ export default function Banner() {
         </p>
       </div>
       <div className="banner-image">
-        <img src="https://www.placehold.co/500x400" alt="Product" />
+        <img src={image} alt="Product" />
       </div>
     </div>
   );
