@@ -9,8 +9,7 @@ function App() {
 
   return (
     <>
-      <LoginModal />
-      {userDetails?.jwtToken && (
+      {userDetails?.jwtToken ? (
         <div>
           <section id="banner">
             <Banner />
@@ -19,6 +18,8 @@ function App() {
             <SearchForm />
           </section>
         </div>
+      ) : (
+        <LoginModal />
       )}
     </>
   );

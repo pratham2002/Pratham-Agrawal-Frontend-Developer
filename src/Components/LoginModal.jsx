@@ -28,7 +28,7 @@ export default function LoginModal() {
 
   return (
     <ReactModal
-      isOpen={!userDetails?.jwtToken}
+      isOpen={true}
       //   onAfterOpen={afterOpenModal}
       style={{
         content: {
