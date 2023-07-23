@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const { authenticateToken } = require("./middleware/authenticate");
 
 const app = express();
 app.use(express.json());
@@ -47,4 +48,11 @@ app.post("/login", (req, res) => {
 
   const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY);
   return res.json({ token });
+});
+
+app.use(authenticateToken);
+
+app.get("/capsules", (req, res) => {
+  console.log(req?.userData);
+  return res.json({ message: "This is a protected route" });
 });
