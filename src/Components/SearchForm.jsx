@@ -1,5 +1,16 @@
 import React, { useState } from "react";
 
+const filterOptions = [
+  { label: "Capsule Serial", value: "capsule_serial" },
+  { label: "Capsule id", value: "capsule_id" },
+  { label: "Status", value: "status" },
+  { label: "Original Launch", value: "original_launch" },
+  { label: "Mission", value: "mission" },
+  { label: "Landings", value: "landings" },
+  { label: "Type", value: "type" },
+  { label: "Reuse Count", value: "reuse_count" },
+];
+
 export default function SearchForm() {
   const [filterType, setFilterType] = useState("default");
   const [searchText, setSearchText] = useState("");
@@ -22,10 +33,12 @@ export default function SearchForm() {
   return (
     <form className="search-form" onSubmit={handleSubmit}>
       <select value={filterType} onChange={handleFilterChange}>
-        <option value="default">Select Filter</option>
-        <option value="filter1">Filter 1</option>
-        <option value="filter2">Filter 2</option>
-        {/* Add more filter options if needed */}
+        <option value="default" disabled>
+          Select Filter
+        </option>
+        {filterOptions?.map((e) => (
+          <option value={e.value}>{e.label}</option>
+        ))}
       </select>
       <input
         type="text"
