@@ -144,53 +144,6 @@ button,
   justify-content: flex-end;
 }
 
-@media (max-width: 768px) {
-  .banner {
-    padding-inline: 40px;
-    flex-direction: column;
-    align-items: center;
-    min-height: 300px;
-    height: 70vw;
-  }
-  .banner-content {
-    width: 95%;
-    margin-inline: 10%;
-  }
-  .banner-content h1 {
-    font-size: max(16px, 3vw);
-    margin-bottom: 5px;
-    animation: reveal 1s ease;
-  }
-  .banner-content p {
-    font-size: max(10px, 2vw);
-    line-height: 1.1;
-    animation: reveal 1.5s ease;
-  }
-  .banner-image {
-    min-width: 240px;
-  }
-  .banner-image img {
-    min-width: 240px;
-  }
-  .search-form {
-    flex-direction: column;
-    align-items: center;
-  }
-  .search-form select {
-    width: 80%;
-    margin-right: 0;
-  }
-  .search-form input[type="text"] {
-    width: 78%;
-  }
-  .pagination-button {
-    justify-content: space-between;
-  }
-  .search-form .pagination-button {
-    margin-block: 0;
-  }
-}
-
 .loader {
   display: block;
   color: #007bff;
@@ -311,4 +264,61 @@ button,
 h1 {
   text-align: center;
   margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    padding-inline: 40px;
+    flex-direction: column;
+    align-items: center;
+    min-height: 300px;
+    height: 70vw;
+  }
+  .banner-content {
+    width: 95%;
+    margin-inline: 10%;
+  }
+  .banner-content h1 {
+    font-size: max(16px, 3vw);
+    margin-bottom: 5px;
+    animation: reveal 1s ease;
+  }
+  .banner-content p {
+    font-size: max(10px, 2vw);
+    line-height: 1.1;
+    animation: reveal 1.5s ease;
+  }
+  .banner-image {
+    min-width: 240px;
+  }
+  .banner-image img {
+    min-width: 240px;
+  }
+  .search-form {
+    flex-direction: column;
+    align-items: center;
+  }
+  .search-form select {
+    width: 80%;
+    margin-right: 0;
+  }
+  .search-form input[type="text"] {
+    width: 78%;
+  }
+  .pagination-button {
+    justify-content: space-between;
+  }
+  .search-form .pagination-button {
+    margin-block: 0;
+  }
+  .login-form {
+    padding: 40px;
+    height: 60%;
+  }
+  .login-form h2 {
+    font-size: 3vw;
+  }
+  .login-form h5 {
+    font-size: 2vw;
+  }
 }
