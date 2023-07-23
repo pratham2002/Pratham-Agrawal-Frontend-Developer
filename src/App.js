@@ -9,7 +9,7 @@ function App() {
       <section id="banner">
         <Banner />
       </section>
-      <section id="search-form">
+      <section id="search-area">
         <SearchForm />
       </section>
     </div>

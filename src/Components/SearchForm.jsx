@@ -31,22 +31,28 @@ export default function SearchForm() {
   };
 
   return (
-    <form className="search-form" onSubmit={handleSubmit}>
-      <select value={filterType} onChange={handleFilterChange}>
-        <option value="default" disabled>
-          Select Filter
-        </option>
-        {filterOptions?.map((e) => (
-          <option value={e.value}>{e.label}</option>
-        ))}
-      </select>
-      <input
-        type="text"
-        value={searchText}
-        onChange={handleSearchTextChange}
-        placeholder="enter text"
-      />
-      <button type="submit">Search</button>
-    </form>
+    <>
+      <section id="search-form">
+        <form className="search-form" onSubmit={handleSubmit}>
+          <select value={filterType} onChange={handleFilterChange}>
+            <option value="default" disabled>
+              Select Filter
+            </option>
+            {filterOptions?.map((e) => (
+              <option value={e.value}>{e.label}</option>
+            ))}
+          </select>
+          <input
+            type="text"
+            value={searchText}
+            onChange={handleSearchTextChange}
+            placeholder="enter text"
+          />
+          <button type="submit">Search</button>
+        </form>
+      </section>
+      <span class="loader"></span>
+      <section id="search-results"></section>
+    </>
   );
 }
