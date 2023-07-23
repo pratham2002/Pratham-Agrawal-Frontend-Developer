@@ -12,7 +12,7 @@ export default function Banner() {
         </p>
       </div>
       <div className="banner-image">
-        <img src="https://www.placehold.co/300x400" alt="Product" />
+        <img src="https://www.placehold.co/500x400" alt="Product" />
       </div>
     </div>
   );
