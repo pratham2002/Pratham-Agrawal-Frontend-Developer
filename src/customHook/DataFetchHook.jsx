@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
-import { createAxiosConfig } from "../Apis/axiosPayloads";
+import { useContext, useEffect, useReducer, useState } from "react";
+import { UserContext } from "../Context/UserContext";
 
 const initState = {
   loading: false,
@@ -40,7 +40,7 @@ const reducer = (state, action) => {
 export default function useDataFetchHook(url) {
   const [state, dispatch] = useReducer(reducer, initState);
   const [retry, setRetry] = useState(0);
-
+  const { userDetails } = useContext(UserContext);
   const retryData = () => {
     setRetry((p) => ++p);
   };
@@ -54,15 +54,19 @@ export default function useDataFetchHook(url) {
       }
       try {
         dispatch({ type: "request" });
-        const config = createAxiosConfig({
-          endPoint: url,
-          other: {
-            cancelToken: source.token,
-          },
-        });
+
+        // const config = createAxiosConfig({
+        //   endPoint: url,
+        //   other: {
+        //     cancelToken: source.token,
+        //   },
+        // });
         // console.log({ config });
-        const response = await axios.request(config, {
+        const response = await axios.request(url, {
           cancelToken: source.token,
+          headers: {
+            Authorization: `Bearer ${userDetails?.jwtToken}`,
+          },
         });
         const data = response?.data;
         dispatch({ type: "success", data });

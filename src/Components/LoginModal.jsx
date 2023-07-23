@@ -16,7 +16,6 @@ export default function LoginModal() {
         email,
         password,
       });
-      console.log(res?.data);
       setUserDetails({ jwtToken: res?.data?.token });
     } catch (error) {
       console.log(error);

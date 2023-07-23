@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "../Context/UserContext";
+import React, { useEffect, useState } from "react";
+import useDataFetchHook from "../customHook/DataFetchHook";
 
 const filterOptions = [
   { label: "Capsule Serial", value: "capsule_serial" },
@@ -15,10 +15,8 @@ const filterOptions = [
 export default function SearchForm() {
   const [filterType, setFilterType] = useState("default");
   const [searchText, setSearchText] = useState("");
-  const { userDetails } = useContext(UserContext);
-  console.log({ userDetails });
   const [url, setUrl] = useState(null);
-
+  const [apiData, fetchAgain] = useDataFetchHook(url);
   const handleFilterChange = (event) => {
     setFilterType(event.target.value);
   };
@@ -33,9 +31,14 @@ export default function SearchForm() {
     // Reset the form if needed
     setSearchText("");
   };
-  if (!userDetails?.jwtToken) {
-    return <></>;
-  }
+
+  useEffect(() => {
+    const url = "http://localhost:3001/capsules";
+    setUrl(url);
+
+    return () => {};
+  }, []);
+
   return (
     <>
       <section id="search-form">
@@ -57,7 +60,21 @@ export default function SearchForm() {
           <button type="submit">Search</button>
         </form>
       </section>
-      <span class="loader"></span>
+      {apiData?.loading && <span class="loader"></span>}
+      {apiData?.error && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            marginBlock: 20,
+          }}
+        >
+          {apiData?.errorMessage ?? "Something went wrong"}
+          <button onClick={fetchAgain}>Retry</button>
+        </div>
+      )}
       <section id="search-results"></section>
     </>
   );

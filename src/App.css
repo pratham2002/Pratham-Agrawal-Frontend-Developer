@@ -107,6 +107,7 @@ html {
 .search-form input[type="text"]:focus {
   outline-color: #2a8bf3;
 }
+button,
 .search-form button {
   padding: 8px 24px;
   border: none;
@@ -119,12 +120,15 @@ html {
   transition: background-color 0.3s ease;
 }
 
+button,
 .search-form button:hover,
+button,
 .search-form button:focus {
   outline-color: #2a8bf3;
   background-color: #0056b3;
 }
 
+button,
 .search-form button:active {
   background-color: #007bff;
 }

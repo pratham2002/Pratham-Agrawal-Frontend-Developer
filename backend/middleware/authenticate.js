@@ -5,12 +5,12 @@ function authenticateToken(req, res, next) {
   try {
     const token = req.header("Authorization")?.split(" ")[1];
     if (!token) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ message: "Unauthorized" });
     }
 
     jwt.verify(token, SECRET_KEY, (err, user) => {
       if (err) {
-        return res.status(403).json({ error: "Forbidden" });
+        return res.status(403).json({ message: "Forbidden" });
       }
 
       req.userData = user;
@@ -18,6 +18,7 @@ function authenticateToken(req, res, next) {
     });
   } catch (error) {
     console.log({ msg: error.message });
+    return res.status(500).json({ message: "Something went wrong" });
   }
 }
 
