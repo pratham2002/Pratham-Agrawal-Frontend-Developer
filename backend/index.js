@@ -55,13 +55,44 @@ app.post("/login", (req, res) => {
 
 app.use(authenticateToken);
 
-// const BASE_URL = "https://api.spacexdata.com/v3/capsules"; //should be added to a env file
 app.get("/capsules", async (req, res) => {
   try {
     const BASE_URL = "https://api.spacexdata.com/v3/capsules"; //should be added to a env file
-    const data = await axios.get(BASE_URL);
-    console.log(req?.userData);
-    return res.json({ message: "This is a protected route", data: data?.data });
+
+    const {
+      capsule_serial,
+      capsule_id,
+      status,
+      original_launch,
+      mission,
+      landings,
+      type,
+      reuse_count,
+      limit = 10,
+      offset = 0,
+    } = req.query;
+
+    // Create an object to hold the query parameters for the Axios request
+    const queryParams = {
+      limit,
+      offset,
+    };
+
+    // Add query parameters to the object if they are present in the request
+    if (capsule_serial) queryParams.capsule_serial = capsule_serial;
+    if (capsule_id) queryParams.capsule_id = capsule_id;
+    if (status) queryParams.status = status;
+    if (original_launch) queryParams.original_launch = original_launch;
+    if (mission) queryParams.mission = mission;
+    if (landings) queryParams.landings = landings;
+    if (type) queryParams.type = type;
+    if (reuse_count) queryParams.reuse_count = reuse_count;
+    // console.log({ queryParams });
+    const { data } = await axios.get(BASE_URL, {
+      params: queryParams,
+    });
+
+    return res.json({ message: "This is a protected route", data: data });
   } catch (error) {
     return res.status(500).json({ message: "Something Went Wrong" });
   }
