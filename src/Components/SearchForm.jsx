@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../Context/UserContext";
 
 const filterOptions = [
   { label: "Capsule Serial", value: "capsule_serial" },
@@ -14,6 +15,9 @@ const filterOptions = [
 export default function SearchForm() {
   const [filterType, setFilterType] = useState("default");
   const [searchText, setSearchText] = useState("");
+  const { userDetails } = useContext(UserContext);
+  console.log({ userDetails });
+  const [url, setUrl] = useState(null);
 
   const handleFilterChange = (event) => {
     setFilterType(event.target.value);
