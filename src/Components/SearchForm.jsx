@@ -85,17 +85,13 @@ export default function SearchForm() {
             onChange={handleSearchTextChange}
             placeholder="enter text"
           />
-          <button type="submit">Search</button>
-          <button type="reset">Reset</button>
+          <div className="pagination-button">
+            <button type="submit">Search</button>
+            <button type="reset">Reset</button>
+          </div>
         </form>
       </section>
-      <div
-        style={{
-          marginBlock: "10px",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
+      <div className="pagination-button">
         <button
           disabled={page < 1}
           style={{ cursor: page < 1 && "not-allowed" }}
