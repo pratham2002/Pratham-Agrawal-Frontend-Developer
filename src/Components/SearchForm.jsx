@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useDataFetchHook from "../customHook/DataFetchHook";
 import useTablePagination from "../customHook/TablePaginationHook";
 import CapsuleCard from "./CapsuleCard";
-const url = "http://localhost:3001/capsules";
+const base_url = "http://localhost:3001/capsules";
 const filterOptions = [
   { label: "Capsule Serial", value: "capsule_serial" },
   { label: "Capsule id", value: "capsule_id" },
@@ -36,10 +36,12 @@ export default function SearchForm() {
   };
 
   useEffect(() => {
-    setUrl(url);
-
+    const params = new URLSearchParams();
+    params.set("offset", page * 10);
+    const newUrl = base_url + "?" + params.toString();
+    setUrl(newUrl);
     return () => {};
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -80,10 +82,16 @@ export default function SearchForm() {
       <section id="search-results">
         {/* {JSON.stringify(apiData?.res?.data)} */}
         <div className="capsule-list">
-          {apiData?.res?.data.map((item, index) => (
+          {apiData?.res?.data?.map((item, index) => (
             <CapsuleCard key={index} capsule={item} />
           ))}
         </div>
+        {apiData?.res?.data?.length > 0 && (
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <button onClick={() => handleChangePage(-1)}>Prev</button>
+            <button onClick={() => handleChangePage(1)}>Next</button>
+          </div>
+        )}
       </section>
     </>
   );
