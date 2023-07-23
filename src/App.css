@@ -233,3 +233,23 @@ button,
 .login-form button:hover {
   background-color: #0056b3;
 }
+
+.capsule-list {
+  margin-block: 20px;
+  padding-inline: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.capsule-card {
+  background-color: #f2f2f2;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}

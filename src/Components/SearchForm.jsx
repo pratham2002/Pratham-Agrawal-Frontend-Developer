@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useDataFetchHook from "../customHook/DataFetchHook";
+import CapsuleCard from "./CapsuleCard";
 
 const filterOptions = [
   { label: "Capsule Serial", value: "capsule_serial" },
@@ -75,7 +76,15 @@ export default function SearchForm() {
           <button onClick={fetchAgain}>Retry</button>
         </div>
       )}
-      <section id="search-results"></section>
+      <section id="search-results">
+        {/* {JSON.stringify(apiData?.res?.data)} */}
+        <div className="capsule-list">
+          {apiData?.res?.data.map((item, index) => (
+            <CapsuleCard key={index} capsule={item} />
+          ))}
+        </div>
+        {console.log(apiData?.res?.data)}
+      </section>
     </>
   );
 }
