@@ -33,7 +33,9 @@ export default function SearchForm() {
     // Reset the form if needed
     setSearchText("");
   };
-
+  if (!userDetails?.jwtToken) {
+    return <></>;
+  }
   return (
     <>
       <section id="search-form">
