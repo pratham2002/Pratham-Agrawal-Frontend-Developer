@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const { authenticateToken } = require("./middleware/authenticate");
+const { default: axios } = require("axios");
 
 const app = express();
 app.use(express.json());
@@ -11,9 +12,9 @@ const users = [
     id: 1,
     username: "user1",
     email: "demo@demo.com",
-    password: "password", // Hashed "password1"
+    password: "password",
   },
-];
+]; //temporary user...this should be from db
 
 app.use(
   cors({
@@ -23,9 +24,9 @@ app.use(
   })
 );
 
-const PORT = 3001;
+const PORT = 3001; //should be from env file
 
-const SECRET_KEY = "ABCDE";
+const SECRET_KEY = "ABCDE"; //should be added to a env file
 
 app.listen(PORT, (error) => {
   if (!error) {
@@ -35,6 +36,8 @@ app.listen(PORT, (error) => {
   }
 });
 
+// all the status code should be maintained into a separate file with proper error message
+
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -43,7 +46,7 @@ app.post("/login", (req, res) => {
   const user = users.find((u) => u.email === email);
 
   if (!user || password !== user.password) {
-    return res.status(401).json({ error: "Invalid credentials" });
+    return res.status(401).json({ message: "Invalid credentials" });
   }
 
   const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY);
@@ -52,7 +55,14 @@ app.post("/login", (req, res) => {
 
 app.use(authenticateToken);
 
-app.get("/capsules", (req, res) => {
-  console.log(req?.userData);
-  return res.json({ message: "This is a protected route" });
+// const BASE_URL = "https://api.spacexdata.com/v3/capsules"; //should be added to a env file
+app.get("/capsules", async (req, res) => {
+  try {
+    const BASE_URL = "https://api.spacexdata.com/v3/capsules"; //should be added to a env file
+    const data = await axios.get(BASE_URL);
+    console.log(req?.userData);
+    return res.json({ message: "This is a protected route", data: data?.data });
+  } catch (error) {
+    return res.status(500).json({ message: "Something Went Wrong" });
+  }
 });
