@@ -64,6 +64,28 @@ export default function SearchForm() {
           <button type="submit">Search</button>
         </form>
       </section>
+      <div
+        style={{
+          marginBlock: "10px",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <button
+          disabled={page < 1}
+          style={{ cursor: page < 1 && "not-allowed" }}
+          onClick={() => handleChangePage(-1)}
+        >
+          Prev
+        </button>{" "}
+        <button
+          disabled={apiData?.res?.data?.length == 0}
+          style={{ cursor: apiData?.res?.data?.length == 0 && "not-allowed" }}
+          onClick={() => handleChangePage(1)}
+        >
+          Next
+        </button>
+      </div>
       {apiData?.loading && <span class="loader"></span>}
       {apiData?.error && (
         <div
@@ -80,16 +102,17 @@ export default function SearchForm() {
         </div>
       )}
       <section id="search-results">
-        {/* {JSON.stringify(apiData?.res?.data)} */}
         <div className="capsule-list">
           {apiData?.res?.data?.map((item, index) => (
             <CapsuleCard key={index} capsule={item} />
           ))}
         </div>
-        {apiData?.res?.data?.length > 0 && (
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <button onClick={() => handleChangePage(-1)}>Prev</button>
-            <button onClick={() => handleChangePage(1)}>Next</button>
+        {apiData?.res?.data?.length === 0 && (
+          <div
+            className="capsule-list"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <div>No Data Available for the given query</div>
           </div>
         )}
       </section>
