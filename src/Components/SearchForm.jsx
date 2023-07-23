@@ -29,15 +29,35 @@ export default function SearchForm() {
   };
 
   const handleSubmit = (event) => {
+    if (!searchText || !filterType) {
+      return;
+    }
     event.preventDefault();
-    // Call your API here using filterType and searchText
-    // Reset the form if needed
+    const params = new URLSearchParams();
+    params.set("offset", 0 * 10);
+    params.set(filterType, searchText);
+    const newUrl = base_url + "?" + params.toString();
+    handleChangePage(-page);
+    setUrl(newUrl);
+  };
+
+  const handleClear = (event) => {
+    event.preventDefault();
+    const params = new URLSearchParams();
+    params.set("offset", 0 * 10);
+    const newUrl = base_url + "?" + params.toString();
+    handleChangePage(-page);
+    setFilterType("default");
     setSearchText("");
+    setUrl(newUrl);
   };
 
   useEffect(() => {
     const params = new URLSearchParams();
     params.set("offset", page * 10);
+    if (filterType !== "default") {
+      params.set(filterType, searchText);
+    }
     const newUrl = base_url + "?" + params.toString();
     setUrl(newUrl);
     return () => {};
@@ -46,7 +66,11 @@ export default function SearchForm() {
   return (
     <>
       <section id="search-form">
-        <form className="search-form" onSubmit={handleSubmit}>
+        <form
+          className="search-form"
+          onReset={handleClear}
+          onSubmit={handleSubmit}
+        >
           <select value={filterType} onChange={handleFilterChange}>
             <option value="default" disabled>
               Select Filter
@@ -62,6 +86,7 @@ export default function SearchForm() {
             placeholder="enter text"
           />
           <button type="submit">Search</button>
+          <button type="reset">Reset</button>
         </form>
       </section>
       <div
@@ -79,8 +104,14 @@ export default function SearchForm() {
           Prev
         </button>{" "}
         <button
-          disabled={apiData?.res?.data?.length == 0}
-          style={{ cursor: apiData?.res?.data?.length == 0 && "not-allowed" }}
+          disabled={
+            apiData?.res?.data?.length == 0 || apiData?.res?.data?.length < 10
+          }
+          style={{
+            cursor:
+              apiData?.res?.data?.length == 0 ||
+              (apiData?.res?.data?.length < 10 && "not-allowed"),
+          }}
           onClick={() => handleChangePage(1)}
         >
           Next
