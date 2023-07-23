@@ -72,6 +72,8 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
   padding: 10px;
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -80,7 +82,8 @@ html {
 .search-form select {
   padding: 8px;
   height: 40px;
-  width: 200px;
+  width: 15%;
+  min-width: 150px;
   border: 1px solid #ccc;
   background-color: #fff;
   border-radius: 5px;
@@ -96,7 +99,8 @@ html {
   border: 1px solid #ccc;
   border-radius: 10px;
   height: 25px;
-  width: 350px;
+  width: 50%;
+  min-width: 120px;
 }
 
 .search-form input[type="text"]:hover {

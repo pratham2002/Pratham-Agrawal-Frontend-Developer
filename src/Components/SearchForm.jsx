@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useDataFetchHook from "../customHook/DataFetchHook";
+import useTablePagination from "../customHook/TablePaginationHook";
 import CapsuleCard from "./CapsuleCard";
-
+const url = "http://localhost:3001/capsules";
 const filterOptions = [
   { label: "Capsule Serial", value: "capsule_serial" },
   { label: "Capsule id", value: "capsule_id" },
@@ -16,6 +17,7 @@ const filterOptions = [
 export default function SearchForm() {
   const [filterType, setFilterType] = useState("default");
   const [searchText, setSearchText] = useState("");
+  const [page, handleChangePage] = useTablePagination();
   const [url, setUrl] = useState(null);
   const [apiData, fetchAgain] = useDataFetchHook(url);
   const handleFilterChange = (event) => {
@@ -34,7 +36,6 @@ export default function SearchForm() {
   };
 
   useEffect(() => {
-    const url = "http://localhost:3001/capsules";
     setUrl(url);
 
     return () => {};
@@ -83,7 +84,6 @@ export default function SearchForm() {
             <CapsuleCard key={index} capsule={item} />
           ))}
         </div>
-        {console.log(apiData?.res?.data)}
       </section>
     </>
   );
