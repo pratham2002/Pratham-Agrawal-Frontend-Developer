@@ -75,8 +75,9 @@ Contributions to this project are welcome! Please feel free to submit issues or 
 1. Clone the repository: `git clone https://github.com/pratham2002/Pratham-Agrawal-Frontend-Developer.git`
 2. Install dependencies: `npm install`
 3. Install dependencies for backend: `cd backend && npm install`
-4. Run the development server: `npm run dev`
-5. Open your browser and navigate to `http://localhost:3000`
+4. Go back to root project: `cd ..`
+5. Run the development server: `npm run dev`
+6. Open your browser and navigate to `http://localhost:3000`
 
 ## License
 
